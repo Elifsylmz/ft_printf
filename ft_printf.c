@@ -1,7 +1,16 @@
-#include <stdarg.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eyilmaz <eyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/03 19:31:53 by eyilmaz           #+#    #+#             */
+/*   Updated: 2025/08/03 19:31:57 by eyilmaz          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
+#include "ft_printf.h"
 
 int find(char c, va_list args)
 {
@@ -10,16 +19,16 @@ int find(char c, va_list args)
 	else if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
 	else if(c == 'p')
-		return(ft_pointer(va_arg(args, void *))); //??????
+		return(ft_pointer(va_arg(args, void *)));
 	else if(c == 'd' || c == 'i')
 		return(ft_putnbr(va_arg(args, int)));
 	else if(c == 'u')
 		return(ft_unbr(va_arg(args, unsigned int)));
 	else if(c == 'x' || c == 'X')
-		return(ft_hex(va_arg(args, unsigned int)));
+		return(ft_hex(va_arg(args, unsigned int), c));
 	else if(c == '%')
-		return (ft_percent(va_arg, int));
-
+		return (ft_putchar('%'));
+	return (0);
 }
 
 int ft_printf(const char *format, ...)
@@ -28,6 +37,8 @@ int ft_printf(const char *format, ...)
 	int	i;
 	int	count;
 
+	if(!format)
+		return (0);
 	count = 0;
 	i = 0;
 	va_start(args, format);
@@ -44,9 +55,5 @@ int ft_printf(const char *format, ...)
 		i++;
 	 }
 	 va_end(args);
-	 return count;
-}
-int main()
-{
-	ft_printf("deneme %c %s",'a',"elif");
+	 return (count);
 }
