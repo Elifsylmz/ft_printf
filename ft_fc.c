@@ -6,7 +6,7 @@
 /*   By: eyilmaz <eyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 19:32:05 by eyilmaz           #+#    #+#             */
-/*   Updated: 2025/08/05 09:36:02 by eyilmaz          ###   ########.fr       */
+/*   Updated: 2025/08/06 21:01:51 by eyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ int	ft_putnbr(int n)
 	int		len;
 	char	c;
 
+	len = 0;
 	if (n == -2147483648)
 	{
 		len += write(1, "-2147483648", 11);
 		return (len);
 	}
-	len = 0;
 	if (n < 0)
 	{
 		len += write(1, "-", 1);
 		n = -n;
 	}
 	if (n > 9)
-		ft_putnbr(n / 10);
+		len += ft_putnbr(n / 10);
 	c = (n % 10) + '0';
 	len += write(1, &c, 1);
 	return (len);
@@ -76,7 +76,7 @@ int	ft_unbr(unsigned int num)
 
 	len = 0;
 	if (num > 9)
-		ft_unbr(num / 10);
+		len += ft_unbr(num / 10);
 	c = (num % 10) + '0';
 	len += write(1, &c, 1);
 	return (len);
